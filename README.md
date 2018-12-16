@@ -4,7 +4,7 @@ Costa Rica Kids School Sponsorship Program
 
 Software Stack
 
-* Tested on Microsoft Windows 8+ and Chrome
+* Tested on Microsoft Windows 7+, iPad 4 mini and Google Chrome
 
 * Java
  * install Java 8 JDK from Oracle website http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
@@ -18,7 +18,7 @@ Software Stack
 * git
  * install Git for Windows https://git-scm.com/download/win
  * change directory to c:\
- * run the command "git clone https://github.com/kpatrick/crk2 crk2" to pull down the latest source code from Github.
+ * run the command "git clone https://github.com/crk2update/crk2-updates crk2" to pull down the latest source code from Github.
 
 * Rails 4
  * change directory to c:\crk2
