@@ -1,0 +1,36 @@
+<%= form_for(@family_year) do |f| %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% if @family_year.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= tr("record_not_saved") %></h2>
+
+      <ul>
+      <% @family_year.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <strong><%= tr('family') %>: </strong>
+    <%= link_to "#{@family.try(:community).try(:code)} - #{@family.try(:name)}", @family %>
+    <%= f.hidden_field :family_id %>
+  </div>
+  <div class="field">
+    <%= f.label :school_year, tr("school_year") %><br>
+    <%= f.text_field :school_year %>
+  </div>
+  <div class="field">
+    <%= f.label :picture, tr("picture") %><br>
+    <%= f.text_field :picture %>
+  </div>
+  <% if @user.can_access_interview_notes? %>
+  <div class="field">
+    <%= f.label :notes, tr("notes") %><br>
+    <%= f.text_area :notes, cols: 40, rows: 5 %>
+  </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,135 @@
+<%= link_to tr('edit'), edit_enrollment_path(@enrollment) %> ::
+<%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
+<%= link_to tr('child'), @enrollment.child %>
+
+<h1><%= tr("enrollment") %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= tr("child") %>:</strong>
+  <%= link_to @enrollment.try(:child).try(:code), @enrollment.try(:child) %>
+</p>
+
+<p>
+  <strong><%=tr('family')%>:</strong>
+  <%= link_to "#{@family.try(:community).try(:code)} - #{@family.try(:name)}", @family %>
+</p>
+
+<p>
+  <strong><%= tr("school_year") %>:</strong>
+  <% if @family_year %>
+  <%=  link_to @enrollment.school_year, @family_year %>
+  <% else %>
+  <%=  @enrollment.school_year %>
+  <% end %>
+</p>
+
+<% if @user && @user.can_access_sponsor? %>
+<p>
+  <strong><%= tr("sponsor") %>:</strong>
+  <%= link_to "#{@enrollment.sponsor.try(:code)} - #{@enrollment.sponsor.try(:given_name)} #{@enrollment.sponsor.try(:family_name)}", @enrollment.sponsor %>
+</p>
+<% end %>
+
+<p>
+  <strong><%= tr("newyear_shirt_size") %>:</strong>
+  <%= Enrollment.code_to_shirt_sizes(self)[@enrollment.newyear_shirt_size] %>
+</p>
+
+<p>
+  <strong><%= tr("newyear_pant_size") %>:</strong>
+  <%= Enrollment.code_to_pant_sizes(self)[@enrollment.newyear_pant_size] %>
+</p>
+
+<p>
+  <strong><%= tr("newyear_shoe_size") %>:</strong>
+  <%= Enrollment.code_to_shoe_sizes(self)[@enrollment.newyear_shoe_size] %>
+</p>
+
+<p>
+  <strong><%= tr("midyear_shirt_size") %>:</strong>
+  <%= Enrollment.code_to_shirt_sizes(self)[@enrollment.midyear_shirt_size] %>
+</p>
+
+<p>
+  <strong><%= tr("midyear_pant_size") %>:</strong>
+  <%= Enrollment.code_to_pant_sizes(self)[@enrollment.midyear_pant_size] %>
+</p>
+
+<p>
+  <strong><%= tr("midyear_shoe_size") %>:</strong>
+  <%= Enrollment.code_to_shoe_sizes(self)[@enrollment.midyear_shoe_size] %>
+</p>
+
+<p>
+  <strong><%= tr("newyear_attendance") %>:</strong>
+  <%= Enrollment.code_to_attendance(self)[@enrollment.newyear_attendance] %>
+</p>
+
+<p>
+  <strong><%= tr("midyear_attendance") %>:</strong>
+  <%= Enrollment.code_to_attendance(self)[@enrollment.midyear_attendance] %>
+</p>
+
+<p>
+  <strong><%= tr("newyear_grade") %>:</strong>
+  <%= Enrollment.code_to_grades(self)[@enrollment.newyear_grade] %>
+</p>
+
+<p>
+  <strong><%= tr("midyear_grade") %>:</strong>
+  <%= Enrollment.code_to_grades(self)[@enrollment.midyear_grade] %>
+</p>
+
+<p>
+  <strong><%= tr("newyear_report_card") %>:</strong>
+  <%= @enrollment.report_card ? tr('bool.true') : tr('bool.false') %>
+</p>
+
+<p>
+  <strong><%= tr("newyear_work_form") %>:</strong>
+  <%= @enrollment.work_form ? tr('bool.true') : tr('bool.false') %>
+</p>
+
+<p>
+  <strong><%= tr("midyear_report_card") %>:</strong>
+  <%= @enrollment.midyear_report_card ? tr('bool.true') : tr('bool.false') %>
+</p>
+
+<p>
+  <strong><%= tr("midyear_work_form") %>:</strong>
+  <%= @enrollment.midyear_work_form ? tr('bool.true') : tr('bool.false') %>
+</p>
+
+<p>
+  <strong><%= tr("pass") %>:</strong>
+  <%= @enrollment.pass ? tr('bool.true') : tr('bool.false')%>
+</p>
+
+<p>
+  <strong><%= tr("letter") %>:</strong>
+  <%= @enrollment.letter ? tr('bool.true') : tr('bool.false') %>
+</p>
+
+<p>
+  <strong><%= tr("included") %>:</strong>
+  <%= @enrollment.included ? tr('bool.true') : tr('bool.false') %>
+</p>
+
+<p>
+  <strong><%= tr("close_up_photo") %>:</strong>
+  <%= @enrollment.close_up_photo %>
+</p>
+
+<p>
+  <strong><%= tr("full_photo") %>:</strong>
+  <%= @enrollment.full_photo %>
+</p>
+
+<p>
+  <strong><%= tr("notes") %>:</strong><br>
+  <% if @enrollment.notes.present? %>
+  <p class="notes"><%= @enrollment.notes %></p>
+  <% end %>
+</p>

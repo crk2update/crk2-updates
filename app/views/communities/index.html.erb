@@ -1,0 +1,23 @@
+<%= link_to tr('new'), new_community_path %> :: <%= link_to tr('home'), {controller: :welcome, action: :index} %>
+
+<h1><%= tr('communities') %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= tr('code') %></th>
+      <th><%= tr('name') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @communities.each do |community| %>
+      <tr>
+        <td><%= community.code %></td>
+        <td><%= community.name %></td>
+        <td><%= link_to tr('show'), community %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,69 @@
+<%= link_to tr('edit'), edit_family_year_path(@family_year) %> ::
+<%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
+<%= link_to tr('family'), @family_year.family %>
+
+<h1><%= tr('family_year') %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= tr('family') %>:</strong>
+  <%= link_to "#{@family.try(:community).try(:code)} - #{@family.try(:name)}", @family %>
+</p>
+
+<p>
+  <strong><%= tr('school_year') %>:</strong>
+  <%= @family_year.school_year %>
+</p>
+
+<p>
+  <strong><%= tr('picture') %>:</strong>
+  <%= @family_year.picture %>
+</p>
+
+<% if @user.can_access_interview_notes? %>
+<p>
+  <strong><%= tr('notes') %>:</strong>
+  <% if @family_year.notes.present? %>
+  <p class="notes"><%= @family_year.notes %></p>
+  <% end %>
+</p>
+<% end %>
+
+<h3><%= tr("enrollments") %></h3>
+
+<% if @children.present? %>
+<table>
+  <thead>
+    <tr>
+      <th><%= tr('school_year') %></th>
+      <th><%= tr('code') %></th>
+      <th><%= tr('family_names') %></th>
+      <th><%= tr('given_names') %></th>
+      <th><%= tr('date_of_birth') %></th>
+      <th><%= tr('gender') %></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @children.each do |child|
+       enrollment = Enrollment.where(child_id: child.id).where(school_year: @family_year.school_year).first
+       if enrollment
+    %>
+      <tr <%= child.status != "in_program" ? "class=out_of_program": "" %>>
+        <td><%= @family_year.school_year %></td>
+        <td><%= child.code %></td>
+        <td><%= child.family_name1 %> <%= child.family_name2 %></td>
+        <td><%= child.given_name1 %> <%= child.given_name2 %></td>
+        <td><%= child.dob %></td>
+        <td><%= Child::code_to_gender(self)[child.gender] %></td>
+        <td><%= link_to tr('show'), enrollment %></td>
+        <td><%= link_to tr('edit'), edit_enrollment_path(enrollment) %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

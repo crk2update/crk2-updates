@@ -1,0 +1,27 @@
+<%= link_to tr('edit'), edit_sponsorship_path(@sponsorship) %> ::
+<%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
+<%= link_to tr('sponsor'), @sponsor %>
+
+<h1><%= tr('sponsorship') %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= tr('school_year') %>:</strong>
+  <%= @sponsorship.school_year %>
+</p>
+
+<p>
+  <strong><%= tr('sponsor') %>:</strong>
+  <%= link_to "#{@sponsor.try(:code)} - #{@sponsor.try(:given_name)} #{@sponsor.try(:family_name)}", @sponsor %>
+</p>
+
+<p>
+  <strong><%= tr('number_children') %>:</strong>
+  <%= @sponsorship.number_children %>
+</p>
+
+<p>
+  <strong><%= tr('dollar_amount') %>:</strong>
+  <%= @sponsorship.dollar_amount %>
+</p>

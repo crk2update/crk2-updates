@@ -1,0 +1,22 @@
+<%= link_to tr('new'), new_enrollment_path %> :: <%= link_to tr('home'), {controller: :welcome, action: :index} %>
+<h1><%= tr("enrollments") %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= tr("school_year") %></th>
+      <th><%= tr("child") %></th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @enrollments.each do |enrollment| %>
+      <tr>
+        <td><%= enrollment.school_year %></td>
+        <td><%= enrollment.child.try(:code) %></td>
+        <td><%= link_to tr('show'), enrollment %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

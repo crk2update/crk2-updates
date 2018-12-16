@@ -1,0 +1,23 @@
+<%= link_to tr('new'), new_family_path %> :: <%= link_to tr('home'), {controller: :welcome, action: :index} %>
+
+<h1><%= tr('families') %></h1>
+
+<table border=1 cellpadding=10>
+  <thead>
+    <tr>
+      <th><%= tr('community') %></th>
+      <th><%= tr('name') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @families.each do |family| %>
+      <tr>
+        <td><%= "#{family.community.try(:code)}" %></td>
+        <td><%= family.name %></td>
+        <td><%= link_to tr('show'), family %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

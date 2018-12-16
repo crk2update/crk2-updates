@@ -1,0 +1,82 @@
+<%= link_to tr('edit'), edit_child_path(@child) %> ::
+<%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
+<%= link_to tr('family'), @child.family %>
+
+<h1><%=tr('child')%></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%=tr('code')%>:</strong>
+  <%= @child.code %>
+</p>
+
+<p>
+  <strong><%=tr('family')%>:</strong>
+  <%= link_to "#{@child.family.try(:community).try(:code)} - #{@child.family.try(:name)}", @child.family %>
+</p>
+
+<p>
+  <strong><%=tr('family_names')%>:</strong>
+  <%= @child.family_name1 %> <%= @child.family_name2 %>
+</p>
+
+<p>
+  <strong><%=tr('given_names')%>:</strong>
+  <%= @child.given_name1 %> <%= @child.given_name2 %>
+</p>
+
+<p>
+  <strong><%=tr('preferred_name')%>:</strong>
+  <%= @child.preferred_name %>
+</p>
+
+<p>
+  <strong><%=tr('date_of_birth')%>:</strong>
+  <%= @child.dob %>
+</p>
+
+<p>
+  <strong><%=tr('status')%>:</strong>
+  <%= Child.code_to_status(self)[@child.status] %>
+</p>
+
+<p>
+  <strong><%=tr('gender')%>:</strong>
+  <%= Child.code_to_gender(self)[@child.gender] %>
+</p>
+
+<p>
+  <strong><%=tr('notes')%>:</strong>
+  <% if @child.notes.present? %>
+  <p class="notes"><%= @child.notes %></p>
+  <% end %>
+</p>
+
+<br>
+
+<h3><%= tr('enrollments') %></h3>
+<%= link_to tr('new'), {controller: :enrollments, action: :new, child_id: @child.id} %>
+
+<% if @enrollments.present? %>
+<table>
+  <thead>
+    <tr>
+      <th><%= tr("school_year") %></th>
+      <th><%= tr("included") %></th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @enrollments.each do |enrollment| %>
+      <tr>
+        <td><%= enrollment.school_year %></td>
+        <td class="included"><%= enrollment.included ?  "✓": "✘" %></td>
+        <td><%= link_to tr('show'), enrollment %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>

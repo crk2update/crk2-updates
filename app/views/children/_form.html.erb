@@ -1,0 +1,81 @@
+<%= form_for(@child) do |f| %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% if @child.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= tr("record_not_saved") %></h2>
+      <ul>
+      <% @child.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code, tr('code') %><br>
+    <%= f.text_field :code %>
+    <% if @child.family.try(:community).try(:id) %>
+    <span style="font-size: 10px"><%= link_to tr('next_code'), {controller: :communities, action: :next_code, id: @child.family.try(:community).try(:id)}, {"target" => "_blank"} %></span>
+    <% end %>
+  </div>
+
+  <div class="field">
+  <%
+  families_array = Family.all.includes(:community).order("communities.name ASC", "families.name ASC").map{|f| ["#{f.community.try(:code)} - #{f.name}", f.id]}
+  families_array.insert(0, ["", nil])
+  %>
+  <%= f.label :family_id, tr('family') %><br><%= f.select(:family_id, families_array) %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :family_name1, tr("family_name1") %><br>
+    <%= f.text_field :family_name1 %>
+  </div>
+  <div class="field float">
+    <%= f.label :family_name2, tr("family_name2") %><br>
+    <%= f.text_field :family_name2 %>
+  </div>
+  <div class="field float">
+    <%= f.label :given_name1, tr("given_name1") %><br>
+    <%= f.text_field :given_name1 %>
+  </div>
+  <div class="field float">
+    <%= f.label :given_name2, tr("given_name2") %><br>
+    <%= f.text_field :given_name2 %>
+  </div>
+  <div class="field float">
+    <%= f.label :preferred_name, tr("preferred_name") %><br>
+    <%= f.text_field :preferred_name %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field">
+    <%= f.label :dob, tr("date_of_birth") %><br>
+    <%= f.date_select :dob, start_year: 1970, end_year: Date.today.year,
+                      use_month_names: [tr("month.jan"), tr("month.feb"), tr("month.mar"),
+                                        tr("month.apr"), tr("month.may"), tr("month.jun"),
+                                        tr("month.jul"), tr("month.aug"), tr("month.sep"),
+                                        tr("month.oct"), tr("month.nov"), tr("month.dec")] %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+  <%
+  statuses_array = Child.status_to_code(self)
+  statuses_array.insert(0, ["", nil])
+  %>
+  <%= f.label :status, tr('status') %><br><%= f.select(:status, statuses_array) %>
+  </div>
+  <div class="field float">
+  <%
+  genders_array = Child.gender_to_code(self)
+  genders_array.insert(0, ["", nil])
+  %>
+  <%= f.label :gender, tr('gender') %><br><%= f.select(:gender, genders_array) %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field">
+    <%= f.label :notes, tr('notes') %><br>
+    <%= f.text_area :notes, cols: 40, rows: 5 %>
+  </div>
+<% end %>

@@ -1,0 +1,70 @@
+<%= form_for(@sponsor) do |f| %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% if @sponsor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= tr("record_not_saved") %></h2>
+
+      <ul>
+      <% @sponsor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :code, tr("code") %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field float">
+    <%= f.label :donor_number, tr('donor_number') %><br>
+    <%= f.text_field :donor_number %>
+  </div>
+  <div class="field float">
+    <%= f.label :link, tr("link") %><br>
+    <%= f.text_field :link %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :given_name, tr('given_name') %><br>
+    <%= f.text_field :given_name %>
+  </div>
+  <div class="field float">
+    <%= f.label :family_name, tr('family_name') %><br>
+    <%= f.text_field :family_name %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :street_address, tr('street_address') %><br>
+    <%= f.text_field :street_address %>
+  </div>
+  <div class="field float">
+    <%= f.label :city, tr('city') %><br>
+    <%= f.text_field :city %>
+  </div>
+  <div class="field float">
+    <%= f.label :postal_code, tr('postal_code') %><br>
+    <%= f.text_field :postal_code %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :primary_email, tr('primary_email') %><br>
+    <%= f.text_field :primary_email %>
+  </div>
+  <div class="field float">
+    <%= f.label :secondary_email, tr('secondary_email') %><br>
+    <%= f.text_field :secondary_email %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :primary_phone, tr('primary_phone') %><br>
+    <%= f.text_field :primary_phone %>
+  </div>
+  <div class="field float">
+    <%= f.label :secondary_phone, tr('secondary_phone') %><br>
+    <%= f.text_field :secondary_phone %>
+  </div>
+  <div style="clear:both;"></div>
+<% end %>

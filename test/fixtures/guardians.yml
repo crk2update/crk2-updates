@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  family_id: 1
+  relationship: MyString
+  relationship_id: 1
+  active: false
+  primary: false
+  given_name1: MyString
+  given_name2: MyString
+  family_name1: MyString
+  family_name2: MyString
+  preferred_name: MyString
+  primary_phone: MyString
+  secondary_phone: MyString
+
+two:
+  family_id: 1
+  relationship: MyString
+  relationship_id: 1
+  active: false
+  primary: false
+  given_name1: MyString
+  given_name2: MyString
+  family_name1: MyString
+  family_name2: MyString
+  preferred_name: MyString
+  primary_phone: MyString
+  secondary_phone: MyString

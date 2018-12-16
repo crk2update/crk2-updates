@@ -1,0 +1,10 @@
+<%= link_to tr('show'), family_year_path(@family_year) %> ::
+<%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
+<%= link_to tr('family'), @family_year.family %>
+
+<h1><%= tr('family_year') %></h1>
+
+<%= render 'form' %>
+<% if @user && @user.can_delete_record? %>
+<div class="delete-record"><%= link_to tr('destroy'), @family_year, method: :delete, data: { confirm: tr('confirm_destroy') } %></div>
+<% end %>

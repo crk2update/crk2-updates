@@ -1,0 +1,109 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+   body {
+     font-family: "Century Gothic", Roboto, sans-serif;
+ 	   font-size: 14px;
+     margin: 0px;
+   }
+
+   div.field {
+     margin-top: 15px;
+   }
+
+   div.field.float {
+     float: left;
+     margin-right: 10px;
+   }
+   table {
+       border-collapse: collapse;
+   }
+   table, td, th {
+       border: 0px solid black;
+   }
+   td, th {
+     padding: 10px;
+   }
+   th {
+     text-align: left;
+   }
+   tr:nth-child(even) {
+     background: #DDD;
+   }
+   tr.out_of_program td, tr.out_of_program td a {
+     # text-decoration: line-through;
+     color: grey
+   }
+   .status, .included {
+     text-align: center;
+     # font-weight: bold;
+  }
+   p.notes {
+      white-space: pre-line;
+   }
+   th {
+     background: #DDD;
+   }
+
+   div.future a {
+     color: red;
+   }
+
+   div.subordinate {
+     display: none;
+   }
+
+   span.userinfo {
+     /* margin-right: 1ex; */
+   }
+
+   div.delete-record {
+     margin-top: 20px;
+   }
+
+   div.delete-record a {
+     color: red;
+     background-color: pink;
+     font-weight: bold;
+     padding: 10px;
+     border: 1px solid red;
+   }
+   input[type=submit] {
+     -webkit-appearance: button;
+     padding:1em;
+     cursor: pointer;
+   }
+   #footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f3e207;
+    color: red;
+    text-align: center;
+}
+   #header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: block;
+    align: center;
+    width: 100%;
+    background-color: #f3e207;
+    font-color:black;
+    height:100px;
+
+}

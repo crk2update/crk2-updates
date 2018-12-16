@@ -1,0 +1,35 @@
+<%= link_to tr('new'), new_child_path %> :: <%= link_to tr('home'), {controller: :welcome, action: :index} %>
+
+<h1><%= tr('children') %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= tr('code') %></th>
+      <th><%= tr('family') %></th>
+      <th><%= tr('family_names') %></th>
+      <th><%= tr('given_names') %></th>
+      <th><%= tr('preferred_name') %></th>
+      <th><%= tr('date_of_birth') %></th>
+      <th><%= tr('status') %></th>
+      <th><%= tr('gender') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @children.each do |child| %>
+      <tr>
+        <td><%= child.code %></td>
+        <td><%= child.family.try(:community).try(:code) %> - <%= child.family.try(:name) %></td>
+        <td><%= child.family_name1 %> <%= child.family_name2 %></td>
+        <td><%= child.given_name1 %> <%= child.given_name2 %></td>
+        <td><%= child.preferred_name %></td>
+        <td><%= child.dob %></td>
+        <td><%= Child::code_to_status(self)[child.status] %></td>
+        <td><%= Child::code_to_gender(self)[child.gender] %></td>
+        <td><%= link_to tr('show'), child %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,24 @@
+<br>
+<%= link_to "<img src='/images/canada_flag.png' height='30px'>en".html_safe, {controller: :welcome, action: :index, locale: "en"} %> ::
+<%= link_to "<img src='/images/costa_rica_flag.png' height='30px'>es".html_safe, {controller: :welcome, action: :index, locale: "es"} %>
+
+<h1><%= tr("home") %></h1>
+
+<% if session[:username].present? %>
+<div style="margin-top: 5px;"><a href="/communities"><%= tr('communities') %></a></div>
+<div class="subordinate" style="margin-top: 5px;"><a href="/families"><%= tr('families') %></a></div>
+<div class="subordinate" style="margin-top: 5px;"><a href="/children"><%= tr('children') %></a></div>
+<div class="subordinate" style="margin-top: 5px;"><a href="/guardians"><%= tr('guardians') %></a></div>
+<div class="subordinate" style="margin-top: 5px;"><a href="/enrollments"><%= tr('enrollments') %></a></div>
+<% if @user && @user.can_access_sponsor? %>
+<div style="margin-top: 5px;"><a href="/sponsors"><%= tr('sponsors') %></a></div>
+<div class="subordinate" style="margin-top: 5px;"><a href="/sponsorships"><%= tr('sponsorships') %></a></div>
+<% end %>
+<% if @user && @user.can_access_reports? %>
+<div style="margin-top: 5px;"><a href="/reports/daily_report">Daily Report</a></div>
+<% end %>
+<div style="margin-top: 5px;"><%= link_to tr('logout'), {controller: :welcome, action: :logout}%></a></div>
+<% else %>
+<div style="margin-top: 5px;"><%= link_to tr('login'), {controller: :welcome, action: :login}%></a></div>
+<% end %>
+<div style="margin-top: 5px;"><a href="/impressum"><%= tr('impressum') %></a></div>

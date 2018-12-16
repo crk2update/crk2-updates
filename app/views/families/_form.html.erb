@@ -1,0 +1,32 @@
+<%= form_for(@family) do |f| %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% if @family.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= tr("record_not_saved") %></h2>
+
+      <ul>
+      <% @family.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%
+  communities_array = Community.all.order(code: :asc).map{|c| ["#{c.code} #{c.name}", c.id]}
+  communities_array.insert(0, ["", nil])
+  %>
+  <%= f.label :community_id, tr('community') %><br><%= f.select(:community_id, communities_array) %>
+
+  <div class="field">
+    <%= f.label :name, tr("name") %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :notes, tr("notes") %><br>
+    <%= f.text_area :notes, cols: 40, rows: 5%>
+  </div>
+<% end %>

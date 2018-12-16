@@ -1,0 +1,196 @@
+<%= link_to tr('edit'), edit_family_path(@family) %> ::
+<%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
+<%= link_to tr('community'), @community %>
+
+<script>
+    var childId = null;
+    var currentEl = null;
+
+    $("body").on("click", ".quick_edit", function(){
+        currentEl = this;
+        childId = $(currentEl).data("child-id");
+        $("#modal").modal();
+    });
+    $("body").on("click", "#cancel_button", function(){
+      $.modal.close();
+    });
+
+    $("body").on($.modal.OPEN, "#modal", function(event, modal){
+      $.ajax("/children/" + childId + "/quick_edit_read").
+          fail(function(){alert("<%=tr('errors.accessing_db')%>")}).
+          done(function(data){
+              $("#modal-status").prop("checked", data.status === "in_program");
+              var included = (data.enrollment && data.enrollment["<%=Time.new.year.to_s%>"]) || false;
+              $("#modal-included").prop("checked", included);
+          });
+    });
+
+    $("body").on("click", "#update_button", function(){
+      var modal_status = $("#modal-status").prop('checked')
+      var modal_included = $("#modal-included").prop('checked');
+
+      $.ajax("/children/" + childId + "/quick_edit_update", {
+        method: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({'status': (modal_status ? "in_program" : "out_of_program"), 'included': modal_included})
+      }).fail(function(){alert("<%=tr('record_not_saved')%>")}).
+         done(function(){
+           $.ajax("/children/" + childId + "/quick_edit_read").
+               fail(function(){alert("<%=tr('errors.accessing_db')%>")}).
+               done(function(data){
+                 var status = (data.status === "in_program") ? "✓": "✘";
+                 var included = "";
+                 if (data.enrollment) {
+                   var school_year = Object.keys(data.enrollment)[0];
+                   included = school_year + " " + (data.enrollment[school_year] ? "✓": "✘");
+                 }
+                 if (data.status != "in_program") {
+                   $(currentEl).closest("tr").addClass("out_of_program");
+                 } else {
+                   $(currentEl).closest("tr").removeClass("out_of_program");
+                 }
+                 $(currentEl).closest("tr").find(".status").text(status);
+                 $(currentEl).closest("tr").find(".included").text(included);
+                 $.modal.close();
+               });
+         });
+
+    });
+</script>
+
+<div id="modal" style="display:none;">
+  <table>
+    <tr><td><%= tr('status')%></td><td><input type="checkbox" id="modal-status"></td></tr>
+    <tr><td><%=tr('included') + " " + Time.new.year.to_s%></td><td><input type="checkbox" id="modal-included"></td></tr>
+  </table>
+  <div style="padding-top:10px"></div>
+  <button type="button" class="btn" id="update_button"><%= tr("update")%></button>
+  <button type="button" class="btn btn-default" id="cancel_button" data-dismiss="modal"><%= tr("cancel")%></button>
+</div>
+
+
+<h1><%= tr('family') %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= tr('community') %>:</strong>
+  <%= link_to "#{@community.try(:code)}", @community %>
+</p>
+
+<p>
+  <strong><%= tr('name') %>:</strong>
+  <%= @family.name %>
+</p>
+
+<p>
+  <strong><%= tr('notes') %>:</strong>
+  <% if @family.notes.present? %>
+  <p class="notes"><%= @family.notes %></p>
+  <% end %>
+</p>
+<br>
+
+<h3><%= tr('guardians') %></h3>
+<%= link_to tr('new'), {controller: :guardians, action: :new, family_id: @family.id} %>
+
+<% if @guardians.present? %>
+<table border=1 cellpadding=10>
+  <thead>
+    <tr>
+      <th><%= tr('family_names') %></th>
+      <th><%= tr('given_names') %></th>
+      <th><%= tr('preferred_name') %></th>
+      <th><%= tr('relationship') %></th>
+      <th><%= tr('active') %></th>
+      <th><%= tr('primary') %></th>
+      <th><%= tr('phones') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @guardians.each do |guardian| %>
+      <tr>
+        <td><%= guardian.family_name1 %> <%= guardian.family_name2 %></td>
+        <td><%= guardian.given_name1 %> <%= guardian.given_name2 %></td>
+        <td><%= guardian.preferred_name %></td>
+        <td><%= Guardian::code_to_relationship(self)[guardian.relationship] %></td>
+        <td><%= guardian.active ? tr('bool.true') : tr('bool.false') %></td>
+        <td><%= guardian.primary ? tr('bool.true') : tr('bool.false') %></td>
+        <td><%= guardian.primary_phone %> <%= guardian.secondary_phone %></td>
+        <td><%= link_to tr('show'), guardian %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<h3><%= tr("children") %></h3>
+<%= link_to tr('new'), {controller: :children, action: :new, family_id: @family.id} %>
+
+<% if @children.present? %>
+<table>
+  <thead>
+    <tr>
+      <th><%= tr('code') %></th>
+      <th><%= tr('family_names') %></th>
+      <th><%= tr('given_names') %></th>
+      <th><%= tr('date_of_birth') %></th>
+      <th><%= tr('status') %></th>
+      <th><%= tr('included') %></th>
+      <th><%= tr('gender') %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @children.each do |child|
+       enrollment = Enrollment.where(child_id: child.id).order(school_year: :desc).first
+    %>
+      <tr <%= child.status != "in_program" ? "class=out_of_program": "" %>>
+        <td><%= child.code %></td>
+        <td><%= child.family_name1 %> <%= child.family_name2 %></td>
+        <td><%= child.given_name1 %> <%= child.given_name2 %></td>
+        <td><%= child.dob %></td>
+        <td class="status"><%= child.status == "in_program" ? "✓": "✘" %></td>
+        <% if enrollment %>
+        <td class="included"><%= enrollment.school_year %> <%= enrollment.included ? "✓": "✘" %></td>
+        <% else %>
+        <td class="included"></td>
+        <% end %>
+        <td><%= Child::code_to_gender(self)[child.gender] %></td>
+        <td><%= link_to tr('show'), child %></td>
+        <td class="quick_edit" data-child-id="<%=child.id%>"><a><%= tr('quick_edit') %></a></td>
+        <td><%= link_to tr('new_enrollment'), {controller: :enrollments, action: :new, child_id: child.id} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<h3><%= tr('family_years') %></h3>
+<%= link_to tr('new'), {controller: :family_years, action: :new, family_id: @family.id} %>
+
+<% if @family_years.present? %>
+<table>
+  <thead>
+    <tr>
+      <th><%= tr('school_year') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @family_years.each do |family_year| %>
+      <tr>
+        <td><%= family_year.school_year %></td>
+        <td><%= link_to tr('show'), family_year %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

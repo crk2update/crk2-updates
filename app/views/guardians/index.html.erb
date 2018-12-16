@@ -1,0 +1,33 @@
+<%= link_to tr('new'), new_guardian_path %> :: <%= link_to tr('home'), {controller: :welcome, action: :index} %>
+
+<h1><%= tr("guardians") %></h1>
+
+<table border=1 cellpadding=10>
+  <thead>
+    <tr>
+      <th><%= tr('family') %></th>
+      <th><%= tr('family_names') %></th>
+      <th><%= tr('given_names') %></th>
+      <th><%= tr('preferred_name') %></th>
+      <th><%= tr('relationship') %></th>
+      <th><%= tr('active') %></th>
+      <th><%= tr('primary') %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @guardians.each do |guardian| %>
+      <tr>
+        <td><%= guardian.family.try(:community).try(:code) %> - <%= guardian.family.try(:name) %></td>
+        <td><%= guardian.family_name1 %> <%= guardian.family_name2 %></td>
+        <td><%= guardian.given_name1 %> <%= guardian.given_name2 %></td>
+        <td><%= guardian.preferred_name %></td>
+        <td><%= Guardian.code_to_relationship(self)[guardian.relationship] %></td>
+        <td><%= guardian.active ? tr('bool.true') : tr('bool.false') %></td>
+        <td><%= guardian.primary ? tr('bool.true') : tr('bool.false') %></td>
+        <td><%= link_to tr('show'), guardian %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

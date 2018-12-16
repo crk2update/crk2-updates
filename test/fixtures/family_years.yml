@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  community_id: 1
+  family_id: 1
+  school_year: MyString
+  picture: MyString
+  notes: MyString
+
+two:
+  community_id: 1
+  family_id: 1
+  school_year: MyString
+  picture: MyString
+  notes: MyString

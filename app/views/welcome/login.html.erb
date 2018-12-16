@@ -1,0 +1,24 @@
+
+<%= form_tag(controller: "welcome", action: "login", method: "post") %>
+<div class="border">
+<div class="table">
+  <div class="row highlight">
+    <span class="cell highlight">Login</span>
+  </div>
+</div>
+<div class="table">
+  <div class="row">
+    <span class="cell right"><%= label_tag(:username, tr("username")) %></span>
+    <span class="cell left"><%= text_field_tag(:username,'',size: 35) %></span>
+  </div>
+  <div class="row">
+    <span class="cell right"><%= label_tag(:password, tr("password")) %></span>
+    <span class="cell left"><%= password_field_tag(:password,'',size: 35) %></span>
+  </div>
+</div>
+<div class="table">
+  <div class="row">
+    <span class="cell"><%= submit_tag(tr("submit")) %></span>
+  </div>
+</div>
+</div>

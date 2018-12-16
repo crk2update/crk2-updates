@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  school_year: MyString
+  child_id: 1
+  child_code: MyString
+  sponsor_id: 1
+  sponsor_code: MyString
+  newyear_shirt_size: MyString
+  newyear_pant_size: MyString
+  newyear_shoe_size: MyString
+  midyear_shirt_size: MyString
+  midyear_pant_size: MyString
+  midyear_shoe_size: MyString
+  newyear_attendance_id: 1
+  newyear_attendance_notes: MyText
+  midyear_attendance_id: 1
+  midyear_attendance_notes: MyText
+  report_card: false
+  report_notes: MyText
+  work_form: false
+  work_form_notes: MyText
+  pass: false
+  pass_notes: MyText
+  grades: MyString
+  grades_notes: MyText
+  letter: false
+  not_included: false
+
+two:
+  school_year: MyString
+  child_id: 1
+  child_code: MyString
+  sponsor_id: 1
+  sponsor_code: MyString
+  newyear_shirt_size: MyString
+  newyear_pant_size: MyString
+  newyear_shoe_size: MyString
+  midyear_shirt_size: MyString
+  midyear_pant_size: MyString
+  midyear_shoe_size: MyString
+  newyear_attendance_id: 1
+  newyear_attendance_notes: MyText
+  midyear_attendance_id: 1
+  midyear_attendance_notes: MyText
+  report_card: false
+  report_notes: MyText
+  work_form: false
+  work_form_notes: MyText
+  pass: false
+  pass_notes: MyText
+  grades: MyString
+  grades_notes: MyText
+  letter: false
+  not_included: false

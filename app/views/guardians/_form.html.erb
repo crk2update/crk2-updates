@@ -1,0 +1,70 @@
+<%= form_for(@guardian) do |f| %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% if @guardian.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= tr("record_not_saved") %></h2>
+
+      <ul>
+      <% @guardian.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+  <%
+  families_array = Family.all.includes(:community).order("communities.name ASC", "families.name ASC").map{|f| ["#{f.community.try(:code)} - #{f.name}", f.id]}
+  families_array.insert(0, ["", nil])
+  %>
+  <%= f.label :family_id, tr('family') %><br><%= f.select(:family_id, families_array) %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :family_name1, tr('family_name1') %><br>
+    <%= f.text_field :family_name1 %>
+  </div>
+  <div class="field float">
+    <%= f.label :family_name2, tr('family_name2') %><br>
+    <%= f.text_field :family_name2 %>
+  </div>
+  <div class="field float">
+    <%= f.label :given_name1, tr('given_name1') %><br>
+    <%= f.text_field :given_name1 %>
+  </div>
+  <div class="field float">
+    <%= f.label :given_name2, tr('given_name2') %><br>
+    <%= f.text_field :given_name2 %>
+  </div>
+  <div class="field float">
+    <%= f.label :preferred_name, tr('preferred_name') %><br>
+    <%= f.text_field :preferred_name %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field">
+  <%
+  relationships_array = Guardian.relationship_to_code(self)
+  relationships_array.insert(0, ["", nil])
+  %>
+  <%= f.label :relationship, tr('relationship') %><br><%= f.select(:relationship, relationships_array) %>
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :active, tr("active") %><br><%= f.check_box :active %> 
+  </div>
+  <div class="field float">
+    <%= f.label :primary, tr("primary") %><br><%= f.check_box :primary %> 
+  </div>
+  <div style="clear:both;"></div>
+  <div class="field float">
+    <%= f.label :primary_phone, tr('primary_phone') %><br>
+    <%= f.text_field :primary_phone %>
+  </div>
+  <div class="field float">
+    <%= f.label :secondary_phone, tr('secondary_phone') %><br>
+    <%= f.text_field :secondary_phone %>
+  </div>
+  <div style="clear:both;"></div>
+<% end %>

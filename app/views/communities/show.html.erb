@@ -1,0 +1,80 @@
+<%= link_to tr('edit'), edit_community_path(@community) %> ::
+<%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
+<%= link_to tr('communities'), {controller: :communities, action: :index} %>
+
+<h1><%= tr('community') %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= tr('code')%>:</strong>
+  <%= @community.code %>
+</p>
+
+<p>
+  <strong><%= tr('name')%>:</strong>
+  <%= @community.name %>
+</p>
+
+<br>
+
+<h3><%= tr('families') %></h3>
+<%= link_to tr('new'), {controller: :families, action: :new, community_id: @community.id} %>
+
+<% if @families.present? %>
+<table border=1 cellpadding=10>
+  <thead>
+    <tr>
+      <th><%= tr('name') %></th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @families.each do |family| %>
+      <tr>
+        <td><%= family.name %></td>
+        <td><%= link_to tr('show'), family %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<br><br>
+
+<h3><%= tr('children') %></h3>
+
+<% if @children.present? %>
+<%= @children.to_a.select{|c| c.status == "in_program"}.length %>/<%= @children.to_a.length %>
+<%= tr('child_status.in_program') %>
+<table>
+  <thead>
+    <tr>
+      <th><%= tr('code') %></th>
+      <th><%= tr('family') %></th>
+      <th><%= tr('family_names') %></th>
+      <th><%= tr('given_names') %></th>
+      <th><%= tr('date_of_birth') %></th>
+      <th><%= tr('status') %></th>
+      <th><%= tr('gender') %></th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @children.each do |child| %>
+      <tr <%= child.status != "in_program" ? "class=out_of_program": "" %>>
+        <td><%= child.code %></td>
+        <td><%= child.family.try(:community).try(:code) %> - <%= child.family.try(:name) %></td>
+        <td><%= child.family_name1 %> <%= child.family_name2 %></td>
+        <td><%= child.given_name1 %> <%= child.given_name2 %></td>
+        <td><%= child.dob %></td>
+        <td class="status"><%= child.status == "in_program" ? "✓": "✘" %></td>
+        <td><%= Child::code_to_gender(self)[child.gender] %></td>
+        <td><%= link_to tr('show'), child %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

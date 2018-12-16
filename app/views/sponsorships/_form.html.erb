@@ -1,0 +1,36 @@
+<%= form_for(@sponsorship) do |f| %>
+  <% if @sponsorship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= tr("record_not_saved") %></h2>
+
+      <ul>
+      <% @sponsorship.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :school_year, tr('school_year') %><br>
+    <%= f.text_field :school_year %>
+  </div>
+  <div class="field">
+  <%
+  sponsors_array = Sponsor.all.order("sponsors.code ASC").map{|s| ["#{s.try(:code)} - #{s.given_name} #{s.family_name}", s.id]}
+  sponsors_array.insert(0, ["", nil])
+  %>
+  <%= f.label :sponsor_id, tr('sponsor') %><br><%= f.select(:sponsor_id, sponsors_array) %>
+  </div>
+  <div class="field">
+    <%= f.label :number_children, tr('number_children') %><br>
+    <%= f.number_field :number_children %>
+  </div>
+  <div class="field">
+    <%= f.label :dollar_amount, tr('dollar_amount') %><br>
+    <%= f.number_field :dollar_amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

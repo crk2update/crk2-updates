@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  school_year: MyString
+  sponsor_id: 1
+  sponsor_code: MyString
+  number_children: 1
+  dollar_amount: 1
+
+two:
+  school_year: MyString
+  sponsor_id: 1
+  sponsor_code: MyString
+  number_children: 1
+  dollar_amount: 1
