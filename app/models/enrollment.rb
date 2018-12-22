@@ -42,30 +42,34 @@ class Enrollment < ActiveRecord::Base
     GRADES_ARRAY.each{|e| h[e] = translator.tr("enrollment_grades." + e)}
     h
   end
-#  	sql="select cgender || '_' || csize from wearing where ctype='shirt'"
-#	results=ActiveRecord::Base.connection.exec_query(sql)
 
+# create the shirt size array from DB - table clothes	
+    sql="select cgender, csize,ctype from clothes order by csize ASC"
+	results=ActiveRecord::Base.connection.exec_query(sql)
+	SHIRT_SIZE_ARRAY_nf = []
+	SHIRT_SIZE_ARRAY = []
+	SHIRT_SIZE_ARRAY[0]=["", nil]
 
-   SHIRT_SIZE_ARRAY= ["male_4", "male_6", "male_8", "male_10", "male_12",
-                      "male_14", "male_16", "male_18",
-                     "male_s", "male_m", "male_l",
-                      "male_k4", "male_k6", "male_k8", "male_k10", "male_k12",
-                      "female_6", "female_8", "female_10", "female_12", "female_14",
-                      "female_16", "female_18",
-                      "female_m",
-                      "female_k4", "female_k6", "female_k8", "female_k10", "female_k12",
-                      "other"
-                    ]
+	index = 0
+	results.to_a.select { |x| x["ctype"]=="shirt"}.each do |x|
+		SHIRT_SIZE_ARRAY_nf[index]=x
+		index=index+1
+	end	
 
   # translator is either a view or controller
   def self.shirt_sizes_to_code(translator,child_id)
-	sql="select gender from children where id='" + child_id.to_s + "'"
+	sql="select gender from children where id='" + child_id.to_s + "' limit 1"
 	gender=ActiveRecord::Base.connection.exec_query(sql)
-	#getgender(child_id)
-	SHIRT_SIZE_ARRAY.select{ |x| x.first(3) == gender.rows.to_s[3..5] }.map{|e| [translator.tr("enrollment_shirt_sizes." + e), e]}
+	# creating the matrix to shirts based on gender
+	gender.to_a.each{ |x| @g=x["gender"] }
+	index = 1
 
-#	puts gender.rows.to_s[3..5]
-#	SHIRT_SIZE_ARRAY.select { |x| x.first(3) == gender.rows.to_s[3..5] }	
+	SHIRT_SIZE_ARRAY_nf.select{|sgender| sgender["cgender"] == @g }.each do |x|
+		SHIRT_SIZE_ARRAY[index]=[x["csize"],x["cgender"] + '_' + x["csize"]]
+		index = index + 1
+	end
+
+	SHIRT_SIZE_ARRAY
   end
 
   def self.get_gender_image(child_id)
@@ -74,31 +78,59 @@ class Enrollment < ActiveRecord::Base
 	results.rows.to_s[3..5]
   end
   
-  def self.code_to_shirt_sizes(translator)
-    h = {}
-    SHIRT_SIZE_ARRAY.each{|e| h[e] = translator.tr("enrollment_shirt_sizes." + e)}
-    h
+  def self.code_to_shirt_sizes(shirt_size)
+  x = shirt_size.size
+  h={}
+  if shirt_size[0..3] == "male"
+	h[0] = "male"
+	h[1] = shirt_size[5..x]
+  else
+  	h[0] = "female"
+	h[1] = shirt_size[7..x]
   end
+	h
+	
+  end
+  
+ def self.code_to_cloth_sizes(cloth)
+  x = cloth.size
+  h={}
+  if cloth[0..3] == "male"
+	h[0] = "male"
+	h[1] = cloth[5..x]
+  else
+  	h[0] = "female"
+	h[1] = cloth[7..x]
+  end
+	h
+	
+  end
+# create the pant size array from DB - table clothes	
+ #   sql="select cgender, csize,ctype from clothes order by csize ASC"
+#	results=ActiveRecord::Base.connection.exec_query(sql)
+	PANT_SIZE_ARRAY_nf = []
+	PANT_SIZE_ARRAY = []
+	PANT_SIZE_ARRAY[0]=["", nil]
+	index = 0
+	results.to_a.select { |x| x["ctype"]=="pant"}.each do |x|
+		PANT_SIZE_ARRAY_nf[index]=x
+		index=index+1
+	end	
 
-
-  PANT_SIZE_ARRAY =  ["male_2", "male_4", "male_6", "male_8", "male_10", "male_12",
-                      "male_14", "male_16", "male_18", "male_26", "male_28", "male_30",
-                      "male_32", "male_34", "male_36", "male_38",
-                      "male_k4", "male_k6", "male_k8", "male_k10", "male_k12",
-                      "female_4", "female_6", "female_8", "female_10", "female_12", "female_14",
-                      "female_16", "female_18", "female_xs", "female_s", "female_m", "female_l", "female_xl",
-                      "female_k4", "female_k6", "female_k8", "female_k10",
-                      "female_k12", "female_k14", "female_k16", "female_k18",
-                      "other"
-                    ]
 
   # translator is either a view or controller
   def self.pant_sizes_to_code(translator,child_id)
-  	sql="select gender from children where id='" + child_id.to_s + "'"
+	sql="select gender from children where id='" + child_id.to_s + "' limit 1"
 	gender=ActiveRecord::Base.connection.exec_query(sql)
-	#get_gender(child_id)
-	PANT_SIZE_ARRAY.select{ |x| x.first(3) == gender.rows.to_s[3..5] }.map{|e| [translator.tr("enrollment_pant_sizes." + e), e]}
-    #PANT_SIZE_ARRAY.map{|e| [translator.tr("enrollment_pant_sizes." + e), e]}
+	# creating the matrix to shirts based on gender
+	gender.to_a.each{ |x| @g=x["gender"] }
+	index = 1
+	PANT_SIZE_ARRAY_nf.select{|sgender| sgender["cgender"] == @g }.each do |x|
+		PANT_SIZE_ARRAY[index]=[x["csize"],x["cgender"] + '_' + x["csize"]]
+		index = index + 1
+	end
+  PANT_SIZE_ARRAY
+
   end
 
   def self.code_to_pant_sizes(translator)
@@ -107,25 +139,30 @@ class Enrollment < ActiveRecord::Base
     h
   end
 
+  # create the shirt size array from DB - table clothes	
+	SHOE_SIZE_ARRAY_nf = []
+	SHOE_SIZE_ARRAY = []
+	SHOE_SIZE_ARRAY[0]=["", nil]
 
-  SHOE_SIZE_ARRAY =  ["male_24", "male_25", "male_26", "male_27", "male_28", "male_29",
-                      "male_30", "male_31", "male_32", "male_33", "male_34", "male_35",
-                      "male_36", "male_37", "male_38", "male_39",
-                      "male_40", "male_41", "male_42", "male_43", "male_44",
-                      "female_24", "female_25", "female_26", "female_27", "female_28", "female_29",
-                      "female_30", "female_31", "female_32", "female_33", "female_34", "female_35", "female_36",
-                      "female_37", "female_38", "female_39", "female_40",
-                      "female_41", "female_42", "female_43", "female_44",
-                      "other"
-                    ]
+	index = 0
+	results.to_a.select { |x| x["ctype"]=="shoes"}.each do |x|
+		SHOE_SIZE_ARRAY_nf[index]=x
+		index=index+1
+	end	
 
   # translator is either a view or controller
   def self.shoe_sizes_to_code(translator,child_id)
-   	sql="select gender from children where id='" + child_id.to_s + "'"
+	sql="select gender from children where id='" + child_id.to_s + "' limit 1"
 	gender=ActiveRecord::Base.connection.exec_query(sql)
-	#get_gender(child_id)
-	SHOE_SIZE_ARRAY.select{ |x| x.first(3) == gender.rows.to_s[3..5] }.map{|e| [translator.tr("enrollment_shoe_sizes." + e), e]}
-    #SHOE_SIZE_ARRAY.map{|e| [translator.tr("enrollment_shoe_sizes." + e), e]}
+	# creating the matrix to shirts based on gender
+	gender.to_a.each{ |x| @g=x["gender"] }
+	index = 1
+	SHOE_SIZE_ARRAY_nf.select{|sgender| sgender["cgender"] == @g }.each do |x|
+		SHOE_SIZE_ARRAY[index]=[x["csize"],x["cgender"] + '_' + x["csize"]]
+		index = index + 1
+	end
+  SHOE_SIZE_ARRAY
+
   end
 
   def self.code_to_shoe_sizes(translator)

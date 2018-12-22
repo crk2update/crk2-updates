@@ -1,0 +1,36 @@
+<%= form_for(@clothes) do |f| %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% if @clothes.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= tr("record_not_saved") %></h2>
+
+      <ul>
+      <% @clothes.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%
+  gender_array = [[" ",nil], [tr('male'),"male"],[tr('female'),"female"]]
+  type_array =  [[" ",nil], [tr('shirt'),"shirt"],[tr('pant'),"pant"],[tr('shoes'),"shoes"]]
+
+  %>
+
+  <%= f.label :cgender, tr('cgender') %><br><%= f.select(:cgender, gender_array) %>
+  <br><%= f.label :ctype, tr('ctype') %><br><%= f.select(:ctype, type_array) %>
+  
+  
+  <div class="field">
+    <%= f.label :csize, tr("csize") %><br>
+    <%= f.text_field :csize %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cdescription, tr("cdescription") %><br>
+    <%= f.text_area :cdescription, cols: 40, rows: 5%>
+  </div>
+<% end %>
