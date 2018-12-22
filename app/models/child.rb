@@ -82,6 +82,4 @@ class Child < ActiveRecord::Base
     end
     nil
   end
-
-  
 end

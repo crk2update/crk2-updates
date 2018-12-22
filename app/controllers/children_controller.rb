@@ -132,11 +132,4 @@ class ChildrenController < ApplicationController
     def child_params
       params.require(:child).permit(:code, :family_id, :notes, :given_name1, :given_name2, :family_name1, :family_name2, :preferred_name, :dob, :status, :gender)
     end
-	
-  def next_code
-    max_code = Child.where("derived_community = ?", @community.code).order("derived_number DESC").first.try(:derived_number)||0
-    @next_code = "#{max_code+1}"
-	@next_code
-  end
-	
 end
