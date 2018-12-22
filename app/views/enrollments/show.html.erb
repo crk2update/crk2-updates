@@ -1,3 +1,5 @@
+<br>
+<br>
 <%= link_to tr('edit'), edit_enrollment_path(@enrollment) %> ::
 <%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
 <%= link_to tr('child'), @enrollment.child %>
@@ -34,33 +36,50 @@
 
 <p>
   <strong><%= tr("newyear_shirt_size") %>:</strong>
-  <%= Enrollment.code_to_shirt_sizes(self)[@enrollment.newyear_shirt_size] %>
+  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_shirt_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_shirt_size)[1] %>
 </p>
+
 
 <p>
   <strong><%= tr("newyear_pant_size") %>:</strong>
-  <%= Enrollment.code_to_pant_sizes(self)[@enrollment.newyear_pant_size] %>
+  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_pant_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_pant_size)[1] %>
 </p>
 
 <p>
   <strong><%= tr("newyear_shoe_size") %>:</strong>
-  <%= Enrollment.code_to_shoe_sizes(self)[@enrollment.newyear_shoe_size] %>
+  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_shoe_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_shoe_size)[1] %>
 </p>
 
 <p>
   <strong><%= tr("midyear_shirt_size") %>:</strong>
-  <%= Enrollment.code_to_shirt_sizes(self)[@enrollment.midyear_shirt_size] %>
+  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_shirt_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_shirt_size)[1] %>
 </p>
 
 <p>
   <strong><%= tr("midyear_pant_size") %>:</strong>
-  <%= Enrollment.code_to_pant_sizes(self)[@enrollment.midyear_pant_size] %>
+  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_pant_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_pant_size)[1] %>
 </p>
 
 <p>
   <strong><%= tr("midyear_shoe_size") %>:</strong>
-  <%= Enrollment.code_to_shoe_sizes(self)[@enrollment.midyear_shoe_size] %>
+  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_shoe_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_shoe_size)[1] %>
 </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <p>
   <strong><%= tr("newyear_attendance") %>:</strong>
@@ -133,3 +152,5 @@
   <p class="notes"><%= @enrollment.notes %></p>
   <% end %>
 </p>
+<br>
+<br>

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :enrollments
   resources :sponsorships
   resources :sponsors
-  resources :kclothes
+  resources :clothes
   
   root 'welcome#index'
   match 'login' => 'welcome#login', :via => [:get, :post]

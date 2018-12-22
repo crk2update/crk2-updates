@@ -55,12 +55,10 @@
 						<center><h1><%= tr(Enrollment.get_gender_image(@enrollment.child_id)) %></h1></center>
 						<table width="100%" border="1" align="center">
 							  <tr valign="bottom">
-								<td align="center" width="60px"><%= tr('month.jan') %></td>
 								<td align="center">
 									<img src="../images/shirt.png" height="50px"><br> 
 									<%
 									newyear_shirt_sizes_array = Enrollment.shirt_sizes_to_code(self,@enrollment.child_id)
-									newyear_shirt_sizes_array.insert(0, [""])
 									%>
 									<%= @size %>
 									<%= f.label :newyear_shirt_size, tr('newyear_shirt_size') %><br><%= f.select(:newyear_shirt_size, newyear_shirt_sizes_array) %>
@@ -69,7 +67,6 @@
 									<img src="../images/pant.png" height="50px"><br>
 									<%
 									newyear_pant_sizes_array = Enrollment.pant_sizes_to_code(self,@enrollment.child_id)
-									newyear_pant_sizes_array.insert(0, ["", nil])
 									%>
 									<%= f.label :newyear_pant_size, tr('newyear_pant_size') %><br><%= f.select(:newyear_pant_size, newyear_pant_sizes_array) %>
 								</td>
@@ -77,37 +74,37 @@
 									<img src="../images/shoes.png" height="50px"><br>
 									<%
 									newyear_shoe_sizes_array = Enrollment.shoe_sizes_to_code(self,@enrollment.child_id)
-									newyear_shoe_sizes_array.insert(0, ["", nil])
 									%>	
 									<%= f.label :newyear_shoe_size, tr('newyear_shoe_size') %><br><%= f.select(:newyear_shoe_size, newyear_shoe_sizes_array) %>
 								</td>
+								<td width="70px">
+									<%= link_to tr('new_size'), {controller: :clothes, action: :new} %>
+								</td>
 							  </tr>
 							  <tr valign="bottom">
-								<td align="center" ><%= tr('month.jul') %></td>
 								<td align="center">
 									<%
 									midyear_shirt_sizes_array = Enrollment.shirt_sizes_to_code(self,@enrollment.child_id)
-									midyear_shirt_sizes_array.insert(0, ["", nil])
 									%>
 									<%= f.label :midyear_shirt_size, tr('midyear_shirt_size') %><br><%= f.select(:midyear_shirt_size, midyear_shirt_sizes_array) %>
 								</td>
 								<td align="center" valign="bottom">
 									<%
 									midyear_pant_sizes_array = Enrollment.pant_sizes_to_code(self,@enrollment.child_id)
-									midyear_pant_sizes_array.insert(0, ["", nil])
 									%>
 									<%= f.label :midyear_pant_size, tr('midyear_pant_size') %><br><%= f.select(:midyear_pant_size, midyear_pant_sizes_array) %>
 								</td>
 								<td align="center" valign="bottom">
 									<%
 									midyear_shoe_sizes_array = Enrollment.shoe_sizes_to_code(self,@enrollment.child_id)
-									midyear_shoe_sizes_array.insert(0, ["", nil])
 									%>
 									<%= f.label :midyear_shoe_size, tr('midyear_shoe_size') %><br><%= f.select(:midyear_shoe_size, midyear_shoe_sizes_array) %>
 								</td>
 							</tr>
 						</table>		
+					
 					</td>
+
 				</tr>
 			</table>
 
@@ -117,10 +114,9 @@
 						<img src="../images/attendance.jpg" height="120px">
 					</td>
 					<td>
-						<center><h1><%= tr('attendance') %> </h1></center>
+						<center><h1><%= tr('attendance') %> & <%= tr('work_form')%> </h1></center>
 						<table width="100%" border="1" align="center">
 						  <tr align="center">
-							<td width="60px"><%= tr('month.jan') %></td>
 							<td>
 								<%
 								newyear_attendance_array = Enrollment.attendance_to_code(self)
@@ -139,9 +135,11 @@
 							<td>
 								<%= f.label :report_card, tr('newyear_report_card')%><br><%= f.check_box :report_card %>
 							</td>
+							<td align="center">
+								<%= f.label :work_form, tr('newyear_work_form') %><br><%= f.check_box :work_form %>
+							</td>
 						  </tr>
 						  <tr align="center">
-							<td align="center"><%= tr('month.jul') %></td>
 							<td align="center">
 								<%
 								midyear_attendance_array = Enrollment.attendance_to_code(self)
@@ -157,34 +155,12 @@
 								<%= f.label :midyear_report_card, tr('midyear_report_card')%><br><%= f.check_box :midyear_report_card %>
 
 							</td>
-						</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-
-			<table  width="100%"> 
-				<tr>
-					<td width="170px" align="right">
-						<img src="../images/office.png" height="90px">
-					</td>
-					<td>
-						<center><h1><%= tr('work_form') %></h1></center>
-
-						<table width="100%" border="1" align="center">
-						  <tr>
-							<td align="center" width="60px"><%= tr('month.jan') %></td>
-							<td align="center">
-								<%= f.label :work_form, tr('newyear_work_form') %><br><%= f.check_box :work_form %>
-							</td>
-						  </tr>
-						  <tr>
-							<td align="center"><%= tr('month.jul') %></td>
 							<td align="center">
 								<%= f.label :midyear_work_form, tr('midyear_work_form') %><br><%= f.check_box :midyear_work_form %>
 							</td>
-						  </tr>
-						</table>		
+
+						</tr>
+						</table>
 					</td>
 				</tr>
 			</table>
@@ -250,16 +226,8 @@
 						</table>
 					</td>
 			</table>
-			<table width=100%>	
-				<tr>
-					<td width="170px" align="right" valign="center">
-					</td>
-					<td>
-						<CENTER><%= f.submit %></CENTER>
-					</td>
-				</tr>
-			</table>
 		</td>
+
 	</tr>
 </table>
 <BR><BR><BR><BR><BR><BR>
