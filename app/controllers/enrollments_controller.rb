@@ -29,7 +29,7 @@ class EnrollmentsController < ApplicationController
   # POST /enrollments.json
   def create
     @enrollment = Enrollment.new(enrollment_params)
-
+	@enrollment.save
     respond_to do |format|
       if @enrollment.save
         format.html { redirect_to @enrollment, notice: tr("enrollment_created") }

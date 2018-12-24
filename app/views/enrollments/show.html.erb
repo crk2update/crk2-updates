@@ -36,33 +36,46 @@
 
 <p>
   <strong><%= tr("newyear_shirt_size") %>:</strong>
-  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_shirt_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_shirt_size)[1] %>
+  <%= unless @enrollment.newyear_shirt_size.nil? || @enrollment.newyear_shirt_size == ""
+		tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_shirt_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_shirt_size)[1]
+	  end
+	%>
 </p>
 
 
 <p>
   <strong><%= tr("newyear_pant_size") %>:</strong>
-  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_pant_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_pant_size)[1] %>
+  <%= unless @enrollment.newyear_pant_size.nil? || @enrollment.newyear_pant_size == ""
+		tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_pant_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_pant_size)[1]
+	 end %>
 </p>
 
 <p>
   <strong><%= tr("newyear_shoe_size") %>:</strong>
-  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_shoe_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_shoe_size)[1] %>
+  <%= unless @enrollment.newyear_shoe_size.nil? || @enrollment.newyear_shoe_size == "" 
+		tr(Enrollment.code_to_cloth_sizes(@enrollment.newyear_shoe_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.newyear_shoe_size)[1]
+	 end	%>
 </p>
 
 <p>
   <strong><%= tr("midyear_shirt_size") %>:</strong>
-  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_shirt_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_shirt_size)[1] %>
+  <%= unless @enrollment.midyear_shirt_size.nil? || @enrollment.midyear_shirt_size == ""
+		tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_shirt_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_shirt_size)[1] 
+	  end %>
 </p>
 
 <p>
   <strong><%= tr("midyear_pant_size") %>:</strong>
-  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_pant_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_pant_size)[1] %>
+  <%= unless @enrollment.midyear_pant_size.nil? || @enrollment.midyear_pant_size == ""
+		tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_pant_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_pant_size)[1]
+	 end %>
 </p>
 
 <p>
   <strong><%= tr("midyear_shoe_size") %>:</strong>
-  <%= tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_shoe_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_shoe_size)[1] %>
+  <%= unless @enrollment.midyear_shoe_size.nil? || @enrollment.midyear_shoe_size ==""
+		tr(Enrollment.code_to_cloth_sizes(@enrollment.midyear_shoe_size)[0]) + " " + Enrollment.code_to_cloth_sizes(@enrollment.midyear_shoe_size)[1] 
+	end	 %>
 </p>
 
 

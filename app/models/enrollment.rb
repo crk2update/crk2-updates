@@ -92,7 +92,7 @@ class Enrollment < ActiveRecord::Base
 	
   end
   
- def self.code_to_cloth_sizes(cloth)
+ def self.code_to_cloth_sizes(cloth)	
   x = cloth.size
   h={}
   if cloth[0..3] == "male"
