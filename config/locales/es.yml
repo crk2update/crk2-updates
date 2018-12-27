@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 es:
+  child_name: "Nombre"
   new_size: "The size is not listed"
   size_saved: "Un tamano de ropa has adicionado al banco de dados. Por favor revise el nuevo dato abajo."
   cloth_created: "Ropa creada"

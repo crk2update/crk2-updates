@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  child_name: "Given Name"
   new_size: "The size is not listed"
   size_saved: "A new cloth size is added to the database. Please review the new data below."
   cloth_created: "Cloth created"

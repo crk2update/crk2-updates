@@ -25,9 +25,10 @@
 					  <% end %>
 						<p>
 							<strong><%= tr("child") %>:</strong>
-							<%= link_to @enrollment.child.try(:code), @enrollment.child %>
+							<%= link_to @enrollment.child.try(:code) + " (" + @name + ")", @enrollment.child %>
 							<%= f.hidden_field :child_id, value: @enrollment.child_id %>
 						  </p>
+						  
 
 						  <div class="field">
 							<%= f.label :school_year, tr('school_year') %><br>

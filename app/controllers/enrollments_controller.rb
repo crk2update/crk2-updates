@@ -12,7 +12,8 @@ class EnrollmentsController < ApplicationController
   # GET /enrollments/1.json
   def show
     @family_year = FamilyYear.where(school_year: @enrollment.school_year).where(family_id: @family.id).first
-  end
+
+	end
 
   # GET /enrollments/new
   def new
@@ -69,6 +70,8 @@ class EnrollmentsController < ApplicationController
       @enrollment = Enrollment.find(params[:id])
       @child = @enrollment.child
       @family = @child.family
+	  @kid = Child.where(id: @enrollment.child).select(:given_name1, :given_name2).to_a
+	  @kid.map {|x| @name = x["given_name1"] + " " + x["given_name2"]} 
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

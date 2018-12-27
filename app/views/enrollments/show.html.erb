@@ -10,7 +10,7 @@
 
 <p>
   <strong><%= tr("child") %>:</strong>
-  <%= link_to @enrollment.try(:child).try(:code), @enrollment.try(:child) %>
+  <%= link_to @enrollment.try(:child).try(:code)  + " (" + @name + ")", @enrollment.try(:child) %>
 </p>
 
 <p>
