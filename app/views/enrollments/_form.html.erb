@@ -1,15 +1,16 @@
+<%= form_for(@enrollment) do |f| %>
+<center><div class="actions">
+<%= f.submit %>
+</div></center>
+
 <table width=50% align="center">
 	<tr>
 		<td>
 
 			<table width="100%" align="left"> 
 				<tr>
-					<td width="170px" align="right" valign="botton"><img src="../images/calendar.png" height="120px"> </td>
+					<td width="170px" align="right" valign="botton"><img src="http://kids.costarica.com/images/calendar.png" height="120px"> </td>
 					<td>
-					<%= form_for(@enrollment) do |f| %>
-					  <div class="actions">
-						<%= f.submit %>
-					  </div>
 
 					  <% if @enrollment.errors.any? %>
 						<div id="error_explanation">
@@ -43,6 +44,8 @@
 						  </div>
 						  <% end %>
 						  <div style="clear:both;"></div>		
+
+					
 					</td>
 				</tr>
 			 </table> 
@@ -50,13 +53,13 @@
 			  
 			<table width="100%" align="left"> 
 				<tr>
-					<td width="170px" align="right" valign="top"><img src="../images/<%= Enrollment.get_gender_image(@enrollment.child_id) %>.png" height="120px"></td>
+					<td width="170px" align="right" valign="top"><img src="http://kids.costarica.com/images/<%= Enrollment.get_gender_image(@enrollment.child_id) %>.png" height="120px"></td>
 					<td>
 						<center><h1><%= tr(Enrollment.get_gender_image(@enrollment.child_id)) %></h1></center>
 						<table width="100%" border="1" align="center">
 							  <tr valign="bottom">
 								<td align="center">
-									<img src="../images/shirt.png" height="50px"><br> 
+									<img src="http://kids.costarica.com/images/shirt.png" height="50px"><br> 
 									<%
 									newyear_shirt_sizes_array = Enrollment.shirt_sizes_to_code(self,@enrollment.child_id)
 									%>
@@ -64,14 +67,14 @@
 									<%= f.label :newyear_shirt_size, tr('newyear_shirt_size') %><br><%= f.select(:newyear_shirt_size, newyear_shirt_sizes_array) %>
 								</td>
 								<td align="center">
-									<img src="../images/pant.png" height="50px"><br>
+									<img src="http://kids.costarica.com/images/pant.png" height="50px"><br>
 									<%
 									newyear_pant_sizes_array = Enrollment.pant_sizes_to_code(self,@enrollment.child_id)
 									%>
 									<%= f.label :newyear_pant_size, tr('newyear_pant_size') %><br><%= f.select(:newyear_pant_size, newyear_pant_sizes_array) %>
 								</td>
 								<td align="center">
-									<img src="../images/shoes.png" height="50px"><br>
+									<img src="http://kids.costarica.com/images/shoes.png" height="50px"><br>
 									<%
 									newyear_shoe_sizes_array = Enrollment.shoe_sizes_to_code(self,@enrollment.child_id)
 									%>	
@@ -111,7 +114,7 @@
 			<table width="100%"> 
 				<tr>
 					<td width="170px" align="right">
-						<img src="../images/attendance.jpg" height="120px">
+						<img src="http://kids.costarica.com/images/attendance.jpg" height="120px">
 					</td>
 					<td>
 						<center><h1><%= tr('attendance') %> & <%= tr('work_form')%> </h1></center>
@@ -167,7 +170,7 @@
 
 			<table  width="100%"> 
 				<tr align="right" valign="top">
-					<td width="170px" align="right" valign="center"><img src="../images/magnifying.png" height="90px"> 
+					<td width="170px" align="right" valign="center"><img src="http://kids.costarica.com/images/magnifying.png" height="90px"> 
 					</td>
 					<td> 
 						<center><h1><%= tr('internal_controls') %></h1></center>
@@ -217,7 +220,7 @@
 											<td>
 												<%= f.label :notes, tr('notes') %><br>
 												<%= f.text_area :notes, cols: 40, rows: 5 %>
-												<% end %>
+
 											</td>
 										</tr>
 									</table>
@@ -231,5 +234,4 @@
 
 	</tr>
 </table>
-<BR><BR><BR><BR><BR><BR>
-
+<% end %>

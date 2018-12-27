@@ -43,6 +43,7 @@ class EnrollmentsController < ApplicationController
   # PATCH/PUT /enrollments/1.json
   def update
     @child = @enrollment.child
+	puts enrollment_params
     respond_to do |format|
       if @enrollment.update(enrollment_params)
         format.html { redirect_to @enrollment, notice: tr("enrollment_updated") }

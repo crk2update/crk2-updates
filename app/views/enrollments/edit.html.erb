@@ -1,3 +1,4 @@
+<br>
 <%= link_to tr('show'), @enrollment %> ::
 <%= link_to tr('home'), {controller: :welcome, action: :index} %>
 
@@ -5,5 +6,9 @@
 
 <%= render 'form' %>
 <% if @user && @user.can_delete_record? %>
-<div class="delete-record"><%= link_to tr('destroy'), @enrollment, method: :delete, data: { confirm: tr('confirm_destroy') } %></div>
+<center><div class="delete-record"><%= link_to tr('destroy'), @enrollment, method: :delete, data: { confirm: tr('confirm_destroy') } %></div></center>
 <% end %>
+<br>
+<br>
+<br>
+<br>
