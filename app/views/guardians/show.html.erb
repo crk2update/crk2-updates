@@ -1,3 +1,4 @@
+<br>
 <%= link_to tr('edit'), edit_guardian_path(@guardian) %> ::
 <%= link_to tr('home'), {controller: :welcome, action: :index} %> ::
 <%= link_to tr('family'), @guardian.family %>
@@ -45,3 +46,5 @@
   <strong><%= tr('phones') %>:</strong>
   <%= @guardian.primary_phone %> <%= @guardian.secondary_phone %>
 </p>
+<br>
+<br>
