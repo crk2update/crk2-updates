@@ -9,7 +9,7 @@
 
 			<table width="100%" align="left"> 
 				<tr>
-					<td width="170px" align="right" valign="botton"><img src="http://kids.costarica.com/images/calendar.png" height="120px"> </td>
+					<td width="170px" align="right" valign="botton"><img src="/images/calendar.png" height="120px"> </td>
 					<td>
 
 					  <% if @enrollment.errors.any? %>
@@ -54,13 +54,13 @@
 			  
 			<table width="100%" align="left"> 
 				<tr>
-					<td width="170px" align="right" valign="top"><img src="http://kids.costarica.com/images/<%= Enrollment.get_gender_image(@enrollment.child_id) %>.png" height="120px"></td>
+					<td width="170px" align="right" valign="top"><img src="/images/<%= Enrollment.get_gender_image(@enrollment.child_id) %>.png" height="120px"></td>
 					<td>
 						<center><h1><%= tr(Enrollment.get_gender_image(@enrollment.child_id)) %></h1></center>
 						<table width="100%" border="1" align="center">
 							  <tr valign="bottom">
 								<td align="center">
-									<img src="http://kids.costarica.com/images/shirt.png" height="50px"><br> 
+									<img src="/images/shirt.png" height="50px"><br> 
 									<%
 									newyear_shirt_sizes_array = Enrollment.shirt_sizes_to_code(self,@enrollment.child_id)
 									%>
@@ -68,14 +68,14 @@
 									<%= f.label :newyear_shirt_size, tr('newyear_shirt_size') %><br><%= f.select(:newyear_shirt_size, newyear_shirt_sizes_array) %>
 								</td>
 								<td align="center">
-									<img src="http://kids.costarica.com/images/pant.png" height="50px"><br>
+									<img src="/images/pant.png" height="50px"><br>
 									<%
 									newyear_pant_sizes_array = Enrollment.pant_sizes_to_code(self,@enrollment.child_id)
 									%>
 									<%= f.label :newyear_pant_size, tr('newyear_pant_size') %><br><%= f.select(:newyear_pant_size, newyear_pant_sizes_array) %>
 								</td>
 								<td align="center">
-									<img src="http://kids.costarica.com/images/shoes.png" height="50px"><br>
+									<img src="/images/shoes.png" height="50px"><br>
 									<%
 									newyear_shoe_sizes_array = Enrollment.shoe_sizes_to_code(self,@enrollment.child_id)
 									%>	
@@ -115,7 +115,7 @@
 			<table width="100%"> 
 				<tr>
 					<td width="170px" align="right">
-						<img src="http://kids.costarica.com/images/attendance.jpg" height="120px">
+						<img src="/images/attendance.jpg" height="120px">
 					</td>
 					<td>
 						<center><h1><%= tr('attendance') %> & <%= tr('work_form')%> </h1></center>
@@ -171,7 +171,7 @@
 
 			<table  width="100%"> 
 				<tr align="right" valign="top">
-					<td width="170px" align="right" valign="center"><img src="http://kids.costarica.com/images/magnifying.png" height="90px"> 
+					<td width="170px" align="right" valign="center"><img src="/images/magnifying.png" height="90px"> 
 					</td>
 					<td> 
 						<center><h1><%= tr('internal_controls') %></h1></center>
