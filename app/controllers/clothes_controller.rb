@@ -1,5 +1,5 @@
 class ClothesController < ApplicationController
-  before_action :check_delete_permission, only: [:destroy]
+
 
 
   def index
@@ -13,9 +13,11 @@ class ClothesController < ApplicationController
 
   def new
     @clothes = Cloth.new
+	
   end
   
 def show
+
 	@clothes = Cloth.where("id= ?", params[:id])
   end
   
@@ -33,6 +35,7 @@ def show
     end
 
   end
+  
   
   def cloth_params
    params.require(:cloth).permit(:cgender, :ctype, :csize, :cdescription)

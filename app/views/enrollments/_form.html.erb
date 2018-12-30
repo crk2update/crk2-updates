@@ -82,7 +82,7 @@
 									<%= f.label :newyear_shoe_size, tr('newyear_shoe_size') %><br><%= f.select(:newyear_shoe_size, newyear_shoe_sizes_array) %>
 								</td>
 								<td width="70px">
-									<%= link_to tr('new_size'), {controller: :clothes, action: :new} %>
+									<%= link_to tr('new_size'), {controller: :clothes, action: :new, }, :target => "_blank" %>
 								</td>
 							  </tr>
 							  <tr valign="bottom">

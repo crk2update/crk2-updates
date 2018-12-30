@@ -47,6 +47,7 @@ class Enrollment < ActiveRecord::Base
 	results = nil
 	ActiveRecord::Base.connection.query_cache.clear
     sql="select cgender, csize,ctype from clothes order by csize ASC"
+	results=ActiveRecord::Base.connection.query_cache.clear
 	results=ActiveRecord::Base.connection.exec_query(sql)
 	SHIRT_SIZE_ARRAY_nf = []
 	SHIRT_SIZE_ARRAY = []
