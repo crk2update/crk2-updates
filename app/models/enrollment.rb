@@ -44,6 +44,8 @@ class Enrollment < ActiveRecord::Base
   end
 
 # create the shirt size array from DB - table clothes	
+	results = nil
+	ActiveRecord::Base.connection.query_cache.clear
     sql="select cgender, csize,ctype from clothes order by csize ASC"
 	results=ActiveRecord::Base.connection.exec_query(sql)
 	SHIRT_SIZE_ARRAY_nf = []
@@ -201,6 +203,7 @@ class Enrollment < ActiveRecord::Base
     end
     nil
   end
+
 
 end
 

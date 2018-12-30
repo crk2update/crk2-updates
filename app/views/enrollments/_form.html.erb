@@ -25,7 +25,7 @@
 					  <% end %>
 						<p>
 							<strong><%= tr("child") %>:</strong>
-							<%= link_to @enrollment.child.try(:code) + " (" + @name + ")", @enrollment.child %>
+							<%= link_to @enrollment.child.try(:code) + " (" + @name.to_s + ")", @enrollment.child %>
 							<%= f.hidden_field :child_id, value: @enrollment.child_id %>
 						  </p>
 						  
@@ -236,3 +236,8 @@
 	</tr>
 </table>
 <% end %>
+<%=
+results = nil
+gender = nil
+
+%>

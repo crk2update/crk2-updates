@@ -20,6 +20,8 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enrollment.new
     @enrollment.school_year = Time.new.year.to_s
     @enrollment.child_id = params[:child_id] if params[:child_id]
+	@kid = Child.where(id: @enrollment.child).select(:given_name1, :given_name2).to_a
+	@kid.map {|x| @name = x["given_name1"] + " " + x["given_name2"]} 
   end
 
   # GET /enrollments/1/edit

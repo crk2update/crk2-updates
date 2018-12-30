@@ -31,6 +31,7 @@ def show
         format.html { render :new }
       end
     end
+
   end
   
   def cloth_params
